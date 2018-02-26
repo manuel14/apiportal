@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 from .models import *
 from .serializers import *
@@ -43,3 +43,7 @@ class OfertaViewSet(viewsets.ReadOnlyModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GroupSerializer
     queryset = Group.objects.all()
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

@@ -9,7 +9,7 @@ class Empresa(models.Model):
 
 class Empleado(models.Model):
     nombre = models.CharField(max_length=200)
-    legajo = models.IntegerField(unique=True)
+    legajo = models.IntegerField(null=True, blank=True)
     cuil = models.CharField(max_length=100, blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     foto_perfil = models.ImageField(
@@ -25,7 +25,7 @@ class Empleado(models.Model):
     fecha_nacimiento = models.DateField(
         auto_now=False, auto_now_add=False, null=True, blank=True)
     dni = models.IntegerField(null=True, blank=True)
-    color = models.CharField(max_length=200)
+    color = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.nombre + str(self.legajo)

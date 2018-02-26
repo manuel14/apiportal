@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from django.conf import settings
-from django.shortcuts import get_object_or_404
 from .models import *
 
 
@@ -47,13 +45,13 @@ class ReciboSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('__all__')
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('__all__')
