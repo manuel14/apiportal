@@ -1,4 +1,4 @@
-Django >= 1.11.1
+Django == 1.11.1
 gunicorn>= 19.6.0
 raven>=6.1.0
 djangorestframework >= 3.7.7
@@ -6,3 +6,4 @@ Pillow
 coreapi
 Markdown==2.6.6
 django-cleanup
+djangorestframework-jwt

@@ -25,6 +25,7 @@ class Empleado(models.Model):
     fecha_nacimiento = models.DateField(
         auto_now=False, auto_now_add=False, null=True, blank=True)
     dni = models.IntegerField(null=True, blank=True)
+    color = models.CharField(max_length=200)
 
     def __str__(self):
         return self.nombre + str(self.legajo)
