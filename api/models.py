@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, Group
 class Empresa(models.Model):
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200, null=True, blank=True)
+    color = models.CharField(max_length=200, null=True, blank=True)
 
 
 class Empleado(models.Model):

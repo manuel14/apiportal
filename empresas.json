@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "nombre": "Tvfuego",
+    "direccion": "Ricardo Rojas 874",
+    "telefono": null,
+    "color": "#007bff",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2",
+    "nombre": "Greppi",
+    "direccion": "San Martin 3214",
+    "telefono": null,
+    "color": "#6610f2",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "3",
+    "nombre": "Auster",
+    "direccion": "Moyano 511",
+    "telefono": null,
+    "color": "#6f42c1",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "4",
+    "nombre": "Patagonica",
+    "direccion": "Perito Moreno 458",
+    "telefono": null,
+    "color": "#e83e8c",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "5",
+    "nombre": "Ases",
+    "direccion": "Thorne 15",
+    "telefono": null,
+    "color": "#dc3545",
+    "created_at": null,
+    "updated_at": null
+  }
+]

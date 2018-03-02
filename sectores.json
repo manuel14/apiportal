@@ -1,0 +1,154 @@
+[
+  {
+    "id": "1",
+    "nombre": "Comercial",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "2",
+    "nombre": "Contable",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "3",
+    "nombre": "Administracion",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "4",
+    "nombre": "Noticiero",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "5",
+    "nombre": "Contenidos",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "6",
+    "nombre": "Edicion",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "7",
+    "nombre": "Sistemas",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "8",
+    "nombre": "Desarrollo",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "9",
+    "nombre": "Redes",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "10",
+    "nombre": "Tecnica",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "11",
+    "nombre": "Mantenimiento",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "12",
+    "nombre": "Compras",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "13",
+    "nombre": "Marketing",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "14",
+    "nombre": "Redes Sociales",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "16",
+    "nombre": "Auditoria",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "17",
+    "nombre": "Gerencia",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "18",
+    "nombre": "Recursos Humanos",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "19",
+    "nombre": "Proveedores",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  },
+  {
+    "id": "20",
+    "nombre": "Ventas",
+    "descripcion": null,
+    "color": "",
+    "created_at": null,
+    "updated_at": null
+  }
+]
