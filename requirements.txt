@@ -8,3 +8,4 @@ Markdown==2.6.6
 django-cleanup
 djangorestframework-jwt
 djoser==1.1.5
+raven>=6.1.0
