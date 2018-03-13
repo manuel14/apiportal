@@ -17,6 +17,14 @@ except ImportError:
 
 import os
 import datetime
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'https://8fa0b91cf12a43639804e2aec9a2f0e5:a107e14c56644fba8c32b7ed239f8a80@sentry.io/303189',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
