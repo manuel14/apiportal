@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
-    'api'
+    'api',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
