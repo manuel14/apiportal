@@ -2,7 +2,6 @@ from . models import *
 from django.contrib.auth.models import User, Group
 import json
 
-
 def load_empleados():
     with open('users.json', 'r')as infile:
         data = json.load(infile)
