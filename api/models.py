@@ -54,7 +54,7 @@ class Recibo(models.Model):
         auto_now=False, auto_now_add=False, null=True, blank=True)
     firmado = models.DateTimeField(
         auto_now=False, auto_now_add=False, null=True, blank=True)
-    imagen = models.FileField(
+    archivo = models.FileField(
         'recibo', upload_to='recibos/', null=True, blank=True)
 
 
