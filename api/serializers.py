@@ -47,7 +47,7 @@ class PostulanteSerializer(serializers.ModelSerializer):
 
 
 class ReciboSerializer(serializers.ModelSerializer):
-    path = serializers.SerializerMethodField('get_path_adjuntos')
+    path = serializers.SerializerMethodField('get_path_recibos')
 
     class Meta:
         model = Recibo
