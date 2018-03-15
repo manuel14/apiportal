@@ -43,7 +43,7 @@ class Mensaje(models.Model):
     asunto = models.CharField(max_length=200)
     contenido = models.CharField(max_length=500)
     empleado = models.ForeignKey(
-        Empleado, on_delete=models.SET_NULL, null=True, blank=True)
+        Empleado, related_name='mensajes', on_delete=models.SET_NULL, null=True, blank=True)
     fecha_creacion = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 
@@ -68,6 +68,9 @@ class Oferta(models.Model):
     estado = models.BooleanField(default=True)
     limite = models.DateField(auto_now_add=False, auto_now=False)
 
+    def __str__(self):
+        return self.titulo
+
 
 class Adjunto(models.Model):
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
@@ -78,7 +81,7 @@ class Adjunto(models.Model):
 
 class Postulante(models.Model):
     nombre = models.CharField(max_length=200)
-    cv = models.ImageField('cv', upload_to='images/', null=True, blank=True)
+    cv = models.FileField('cv', upload_to='cvs/', null=True, blank=True)
     dni = models.IntegerField(null=True, blank=True)
     telefono = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -112,7 +115,6 @@ class FormularioAdelanto(Formulario):
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="adelantos")
 
 
-
 class FormularioVacaciones(Formulario):
     responsable = models.CharField(max_length=100)
     fecha_inicio = models.DateField(auto_now=False, auto_now_add=False)
@@ -123,7 +125,3 @@ class FormularioVacaciones(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='vacaciones', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="vacaciones")
-
-
-
-
