@@ -2,6 +2,24 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 
 
+def upload_path_recibo(instance, filename):
+    if instance.tipo == "R":
+        tipo = "recibos"
+    else:
+        tipo = "aguinaldos"
+    return '{0}/{1}/{2}/{3}/{4}'.format(instance.empleado.empresa.nombre, instance.empleado.legajo, tipo, instance.periodo, filename)
+
+
+def upload_path_adjunto(instance, filename):
+    return '{0}/{1}/{2}/{3}'.format(instance.empleado.empresa.nombre, instance.empleado.legajo, "adjuntos", filename)
+
+
+def upload_path_cv(instance, filename):
+    return '{0}/{1}/{2}/{3}'.format(instance.oferta.empresa, "cvs", instance.dni, filename)
+
+def upload_path_empleado(instance, filename):
+    return '{0}/{1}/{2}'.format(instance.empresa, instance.legajo, filename)
+
 class Empresa(models.Model):
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200, null=True, blank=True)
@@ -17,11 +35,11 @@ class Empleado(models.Model):
     cuil = models.CharField(max_length=100, blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     foto_perfil = models.ImageField(
-        'foto_perfil', upload_to='images/', null=True, blank=True)
+        'foto_perfil', upload_to=upload_path_empleado, null=True, blank=True)
     firma = models.ImageField(
-        'firma', upload_to='images/', null=True, blank=True)
+        'firma', upload_to=upload_path_empleado, null=True, blank=True)
     empresa = models.ForeignKey(
-        Empresa, on_delete=models.SET_NULL, related_name='empleados', null=True, blank=True)
+        Empresa, on_delete=models.CASCADE, related_name='empleados', default=2)
     domicilio = models.CharField(max_length=200, null=True, blank=True)
     fecha_ingreso = models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
@@ -55,7 +73,15 @@ class Recibo(models.Model):
     firmado = models.DateTimeField(
         auto_now=False, auto_now_add=False, null=True, blank=True)
     archivo = models.FileField(
-        'recibo', upload_to='recibos/', null=True, blank=True)
+        'recibo', upload_to=upload_path_recibo, null=True, blank=True)
+    A = "A"
+    R = "R"
+    tipo_choices = (
+        (A, 'Aguinaldo'),
+        (R, 'Recibo')
+    )
+    tipo = models.CharField(
+        max_length=20, choices=tipo_choices, default=R)
 
 
 class Oferta(models.Model):
@@ -76,12 +102,13 @@ class Adjunto(models.Model):
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=10, null=True, blank=True)
     archivo = models.FileField(
-        'adjunto', upload_to='adjuntos/', null=True, blank=True)
+        'adjunto', upload_to=upload_path_adjunto, null=True, blank=True)
 
 
 class Postulante(models.Model):
     nombre = models.CharField(max_length=200)
-    cv = models.FileField('cv', upload_to='cvs/', null=True, blank=True)
+    cv = models.FileField('cv', upload_to=upload_path_cv,
+                          null=True, blank=True)
     dni = models.IntegerField(null=True, blank=True)
     telefono = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -113,6 +140,8 @@ class FormularioAdelanto(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='adelantos', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="adelantos")
+    archivo = models.FileField(
+        'formularioAdelanto', upload_to='formularios/adelantos/', null=True, blank=True)
 
 
 class FormularioVacaciones(Formulario):
@@ -125,3 +154,19 @@ class FormularioVacaciones(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='vacaciones', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="vacaciones")
+    archivo = models.FileField(
+        'formularioVacaciones', upload_to='formularios/vacaciones/', null=True, blank=True)
+
+
+class FormularioLicencia(Formulario):
+    responsable = models.CharField(max_length=100)
+    fecha_inicio = models.DateField(auto_now=False, auto_now_add=False)
+    fecha_fin = models.DateField(auto_now=False, auto_now_add=False)
+    observaciones = models.CharField(max_length=400, null=True, blank=True)
+    periodo = models.DateField(auto_now_add=False, auto_now=False)
+    empleado = models.ForeignKey(
+        Empleado, on_delete=models.SET_NULL, related_name='licencias', null=True, blank=True)
+    empresa = models.ForeignKey(
+        Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="licencias")
+    archivo = models.FileField(
+        'formularioLicencia', upload_to='formularios/licencia/', null=True, blank=True)

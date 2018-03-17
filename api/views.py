@@ -6,8 +6,6 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.decorators import detail_route, list_route
-from rest_framework.decorators import parser_classes
-from rest_framework.parsers import JSONParser, MultiPartParser
 
 
 class EmpleadoViewSet(viewsets.ModelViewSet):
@@ -55,7 +53,6 @@ class MensajeViewSet(mixins.CreateModelMixin,
             return Response([])
 
 
-@parser_classes((JSONParser, MultiPartParser))
 class AdjuntoViewSet(mixins.CreateModelMixin,
                      mixins.RetrieveModelMixin,
                      mixins.UpdateModelMixin,
@@ -77,13 +74,23 @@ class ReciboViewSet(mixins.CreateModelMixin,
                     mixins.ListModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = ReciboSerializer
+    queryset = Recibo.objects.all()
 
-    def get_queryset(self):
+    @list_route(url_name='recibos_empleado', url_path='recibos_empleado')
+    def recibos_empleado(self, request):
         emp = Empleado.objects.get(user=self.request.user)
         try:
-            return Recibo.objects.filter(empleado=emp)
+            data = Recibo.objects.filter(empleado=emp)
+            serializer = self.get_serializer(data, many=True)
+            return Response(serializer.data)
         except ObjectDoesNotExist:
             return []
+
+    @list_route(url_name='recibos_mes', url_path='recibos_mes/(?P<mes>[0-9]{2})')
+    def recibos_mes(self, request, mes):
+        data = Recibo.objects.filter(periodo__month=mes)
+        serializer = self.get_serializer(data, many=True)
+        return Response(serializer.data)
 
 
 class OfertaViewSet(viewsets.ModelViewSet):

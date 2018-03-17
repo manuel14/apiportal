@@ -27,16 +27,10 @@ class OfertaSerializer(serializers.ModelSerializer):
 
 
 class AdjuntoSerializer(serializers.ModelSerializer):
-    path = serializers.SerializerMethodField('get_path_adjuntos')
 
     class Meta:
         model = Adjunto
-        fields = ('empleado', 'tipo', 'path')
-
-    def get_path_adjuntos(self, obj):
-        filepath = settings.URL_SERVER
-        filepath += os.path.join(filepath, settings.MEDIA_URL, "ushuaiavision", "{0}", "{1}").format(obj.empleado.legajo, obj.archivo.name)
-        return filepath
+        fields = ('empleado', 'tipo', 'archivo')
 
 
 class PostulanteSerializer(serializers.ModelSerializer):
@@ -47,16 +41,11 @@ class PostulanteSerializer(serializers.ModelSerializer):
 
 
 class ReciboSerializer(serializers.ModelSerializer):
-    path = serializers.SerializerMethodField('get_path_recibos')
 
     class Meta:
         model = Recibo
-        fields = ('periodo', 'empleado', 'abierto', 'firmado', 'path')
-
-    def get_path_recibos(self, obj):
-        filepath = settings.URL_SERVER
-        filepath += os.path.join(filepath, settings.MEDIA_URL, "ushuaiavision", "{0}", "{1}").format(obj.empleado.legajo, obj.archivo.name)
-        return filepath
+        fields = ('periodo', 'empleado', 'abierto',
+                  'firmado', 'archivo', 'tipo')
 
 
 class MensajeSerializer(serializers.ModelSerializer):
