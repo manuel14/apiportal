@@ -52,9 +52,12 @@ INSTALLED_APPS = [
     'djoser',
     'api',
     'raven.contrib.django.raven_compat',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -200,6 +203,20 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE': None,
 
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+
 
 LOGGING = {
     'version': 1,

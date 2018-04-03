@@ -140,8 +140,6 @@ class FormularioAdelanto(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='adelantos', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="adelantos")
-    archivo = models.FileField(
-        'formularioAdelanto', upload_to='formularios/adelantos/', null=True, blank=True)
 
 
 class FormularioVacaciones(Formulario):
@@ -154,8 +152,6 @@ class FormularioVacaciones(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='vacaciones', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="vacaciones")
-    archivo = models.FileField(
-        'formularioVacaciones', upload_to='formularios/vacaciones/', null=True, blank=True)
 
 
 class FormularioLicencia(Formulario):
@@ -168,5 +164,3 @@ class FormularioLicencia(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='licencias', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="licencias")
-    archivo = models.FileField(
-        'formularioLicencia', upload_to='formularios/licencia/', null=True, blank=True)

@@ -1,11 +1,14 @@
 from rest_framework import viewsets, mixins
 from django.contrib.auth.models import Group, User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseForbidden
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.decorators import detail_route, list_route
+from rest_framework.permissions import IsAdminUser
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 class EmpleadoViewSet(viewsets.ModelViewSet):
@@ -126,7 +129,11 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
 
 
-class FormularioAdelantoViewSet(viewsets.ModelViewSet):
+class FormularioAdelantoViewSet(mixins.CreateModelMixin,
+                                mixins.RetrieveModelMixin,
+                                mixins.UpdateModelMixin,
+                                mixins.ListModelMixin,
+                                viewsets.GenericViewSet):
     serializer_class = FormularioAdelantoSerializer
 
     def get_queryset(self):
@@ -136,8 +143,23 @@ class FormularioAdelantoViewSet(viewsets.ModelViewSet):
         except ObjectDoesNotExist:
             return []
 
+    @list_route(url_name='adelantos_pendientes', url_path='adelantos_pendientes')
+    def adelantos_pendientes(self, request):
+        if request.user.is_staff:
+            data = FormularioAdelanto.objects.filter(estado="P")
+            if len(data) == 0:
+                return Response([])
+            serializer = self.get_serializer(data, many=True)
+            return Response(serializer.data)
+        else:
+            return HttpResponseForbidden('No posee los permisos necesarios')
 
-class FormularioVacacionesViewSet(viewsets.ModelViewSet):
+
+class FormularioVacacionesViewSet(mixins.CreateModelMixin,
+                                  mixins.RetrieveModelMixin,
+                                  mixins.UpdateModelMixin,
+                                  mixins.ListModelMixin,
+                                  viewsets.GenericViewSet):
     serializer_class = FormularioVacacionesSerializer
 
     def get_queryset(self):
@@ -146,3 +168,14 @@ class FormularioVacacionesViewSet(viewsets.ModelViewSet):
             return FormularioVacaciones.objects.filter(empleado=emp)
         except ObjectDoesNotExist:
             return []
+
+    @list_route(url_name='vacaciones_pendientes', url_path='vacaciones_pendientes')
+    def vacaciones_pendientes(self, request):
+        if request.user.is_staff:
+            data = FormularioVacaciones.objects.filter(estado="P")
+            if len(data) == 0:
+                return Response([])
+            serializer = self.get_serializer(data, many=True)
+            return Response(serializer.data)
+        else:
+            return HttpResponseForbidden('No posee los permisos necesarios')
