@@ -134,7 +134,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 URL_SERVER = 'http://192.168.50.164:9494'
 
 if DEBUG:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['*']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -204,8 +204,9 @@ JWT_AUTH = {
 
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
-
+CORS_ORIGIN_WHITELIST = (
+    'localhost:80'
+)
 
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -216,7 +217,21 @@ CORS_ALLOW_METHODS = (
     'PUT',
 )
 
-
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'X-CSRF-TOKEN',
+    'x-requested-with',
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Credentials',
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Methods'
+)
 
 LOGGING = {
     'version': 1,
