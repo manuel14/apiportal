@@ -95,6 +95,18 @@ class ReciboViewSet(mixins.CreateModelMixin,
         serializer = self.get_serializer(data, many=True)
         return Response(serializer.data)
 
+    @list_route(url_name='recibos_por_empleado', url_path='recibos_por_empleado/(?P<empleado>[0-9]+)')
+    def recibos_por_empleado(self, request, empleado=None):
+        if request.user.is_staff:
+            if empleado:
+                data = Recibo.objects.filter(empleado=empleado)
+                serializer = self.get_serializer(data, many=True)
+                return Response(serializer.data)
+            else:
+                return Response([])
+        else:
+            return HttpResponseForbidden('No posee los permisos necesarios')
+
 
 class OfertaViewSet(viewsets.ModelViewSet):
     serializer_class = OfertaSerializer
