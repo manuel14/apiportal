@@ -17,8 +17,14 @@ def upload_path_adjunto(instance, filename):
 def upload_path_cv(instance, filename):
     return '{0}/{1}/{2}/{3}'.format(instance.oferta.empresa, "cvs", instance.dni, filename)
 
+
+def upload_path_fichada(instance, filename):
+    return '{0}/{1}/{2}/{3}/{4}'.format(instance.empleado.empresa.nombre, instance.empleado.legajo, "fichadas", instance.periodo, filename)
+
+
 def upload_path_empleado(instance, filename):
     return '{0}/{1}/{2}'.format(instance.empresa, instance.legajo, filename)
+
 
 class Empresa(models.Model):
     nombre = models.CharField(max_length=200)
@@ -135,7 +141,7 @@ class Formulario(models.Model):
 
 class FormularioAdelanto(Formulario):
     importe = models.IntegerField()
-    motivo = models.CharField(max_length=400)
+    motivo = models.CharField(max_length=400, blank=True, null=True)
     empleado = models.ForeignKey(
         Empleado, on_delete=models.SET_NULL, related_name='adelantos', null=True, blank=True)
     empresa = models.ForeignKey(
@@ -164,3 +170,14 @@ class FormularioLicencia(Formulario):
         Empleado, on_delete=models.SET_NULL, related_name='licencias', null=True, blank=True)
     empresa = models.ForeignKey(
         Empresa, on_delete=models.SET_NULL, blank=True, null=True, related_name="licencias")
+
+
+class Fichada(models.Model):
+    periodo = models.DateField(auto_now=False, auto_now_add=False)
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
+    abierto = models.DateTimeField(
+        auto_now=False, auto_now_add=False, null=True, blank=True)
+    firmado = models.DateTimeField(
+        auto_now=False, auto_now_add=False, null=True, blank=True)
+    archivo = models.FileField(
+        'fichada', upload_to=upload_path_fichada, null=True, blank=True)

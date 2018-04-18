@@ -69,9 +69,17 @@ class FormularioAdelantoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormularioAdelanto
         fields = ('__all__')
+        read_only_fields = ('estado',)
 
 
 class FormularioVacacionesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormularioVacaciones
         fields = ('__all__')
+
+class FichadaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Fichada
+        fields = ('periodo', 'empleado', 'abierto',
+                  'firmado', 'archivo')

@@ -28,6 +28,8 @@ router.register(r'formularioAdelanto', views.FormularioAdelantoViewSet,
                 base_name='formularioAdelanto')
 router.register(r'formularioVacaciones', views.FormularioVacacionesViewSet,
                 base_name='formularioVacaciones')
+router.register(r'fichada', views.FichadaViewSet,
+                base_name='fichada')
 urlpatterns = [
     url(r'^docs/', include_docs_urls(title='api',
                                      authentication_classes=[],

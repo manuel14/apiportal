@@ -10,7 +10,6 @@ from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.decorators import user_passes_test
 
 
-
 class EmpleadoViewSet(viewsets.ModelViewSet):
     serializer_class = EmpleadoSerializer
     queryset = Empleado.objects.all()
@@ -191,3 +190,12 @@ class FormularioVacacionesViewSet(mixins.CreateModelMixin,
             return Response(serializer.data)
         else:
             return HttpResponseForbidden('No posee los permisos necesarios')
+
+
+class FichadaViewSet(mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.ListModelMixin,
+                     viewsets.GenericViewSet):
+    serializer_class = FichadaSerializer
+    queryset = Fichada.objects.all()
