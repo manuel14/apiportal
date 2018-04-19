@@ -6,8 +6,6 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.decorators import detail_route, list_route
-from rest_framework.permissions import IsAdminUser
-from django.contrib.auth.decorators import user_passes_test
 
 
 class EmpleadoViewSet(viewsets.ModelViewSet):
@@ -138,6 +136,13 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+    @list_route(url_name='me', url_path='me')
+    def me(self, request):
+        data = User.objects.get(username=request.user.username)
+        serializer = self.get_serializer(data)
+        return Response(serializer.data)
+
 
 
 class FormularioAdelantoViewSet(mixins.CreateModelMixin,

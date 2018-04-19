@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 
 
@@ -54,9 +55,17 @@ class MensajeSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    empleado_id = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('username', 'email', 'empleado_id', 'is_staff', 'is_active')
+
+    def get_empleado_id(self, obj):
+        try:
+            return Empleado.objects.get(user=obj).pk
+        except ObjectDoesNotExist:
+            return None
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -76,6 +85,7 @@ class FormularioVacacionesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormularioVacaciones
         fields = ('__all__')
+
 
 class FichadaSerializer(serializers.ModelSerializer):
 
