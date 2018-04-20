@@ -69,6 +69,7 @@ class Mensaje(models.Model):
     empleado = models.ForeignKey(
         Empleado, related_name='mensajes', on_delete=models.SET_NULL, null=True, blank=True)
     fecha_creacion = models.DateTimeField(auto_now=False, auto_now_add=True)
+    leido = models.BooleanField(default=False)
 
 
 class Recibo(models.Model):

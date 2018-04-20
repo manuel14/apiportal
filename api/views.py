@@ -38,6 +38,7 @@ class PostulanteViewSet(mixins.CreateModelMixin,
 
 class MensajeViewSet(mixins.CreateModelMixin,
                      mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
                      mixins.ListModelMixin,
                      viewsets.GenericViewSet):
     serializer_class = MensajeSerializer
