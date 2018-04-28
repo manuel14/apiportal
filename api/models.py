@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from datetime import datetime
 
 
 def upload_path_recibo(instance, filename):
@@ -89,6 +90,9 @@ class Recibo(models.Model):
     )
     tipo = models.CharField(
         max_length=20, choices=tipo_choices, default=R)
+
+    def __str__(self):
+        return self.empleado.nombre+ " " + datetime.strftime(self.periodo ,"%d-%m-%Y")
 
 
 class Oferta(models.Model):

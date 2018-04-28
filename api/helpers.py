@@ -1,7 +1,8 @@
 from . models import *
 from django.contrib.auth.models import User, Group
+from django.core.files import File
+from datetime import datetime
 import json
-
 
 
 def load_empleados():
@@ -46,4 +47,21 @@ def load_sectores():
         e = Group(name=d["nombre"])
         sectores.append(e)
     Group.objects.bulk_create(sectores)
+    return True
+
+
+def load_recibos(file_path):
+    with open('recibos.json', 'r')as infile:
+        data = json.load(infile)
+    f = File(open(file_path, 'rb'))
+    recibos = []
+    for r in data:
+        emp = Empleado.objects.get(pk=r["empleado"])
+        recibo = Recibo(
+            periodo=datetime.strptime(r["periodo"], "%d-%m-%Y"),
+            empleado=emp,
+            archivo=f
+        )
+        recibos.append(recibo)
+    Recibo.objects.bulk_create(recibos)
     return True
